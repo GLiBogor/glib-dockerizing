@@ -3,6 +3,7 @@
 ##########################
 
 #1. Instal Docker
+sudo apt update
 sudo apt -y install docker.io
 sudo systemctl status docker
 
