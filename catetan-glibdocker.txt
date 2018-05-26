@@ -47,7 +47,7 @@ sudo docker container ls -a
 ##################################
 
 #1. Buat direktori /latihan/latihan01 dan masuk ke dalamnya
-sudo mkdir -p latihan/latihan01
+mkdir -p latihan/latihan01
 cd latihan/latihan01
 
 
