@@ -80,6 +80,9 @@ sudo docker run docker-whale
 ##### Dockerizing Application #####
 ###################################
 
+#0. Install git
+sudo apt install -y git
+
 #1. Clone repo berikut
 git clone https://github.com/sdmoko/2048.git
 
@@ -115,10 +118,11 @@ CMD ["nginx", "-g", "daemon off;"]
 
 
 #4. Build image
-docker build -t [NAMA-IMAGE] .
+sudo docker build -t [NAMA-IMAGE] .
 
 #5. Running image
-docker run -d --name [NAMA-CONTAINER] -p 8000:80 [NAMA-IMAGE]
+sudo docker run -d --name [NAMA-CONTAINER] -p 8000:80 [NAMA-IMAGE]
 
 #6. Cek hasil run docker
 curl http://localhost:8000
+browsing ke ip-address:8000
