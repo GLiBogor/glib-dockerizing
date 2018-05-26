@@ -47,9 +47,8 @@ sudo docker container ls -a
 ##################################
 
 #1. Buat direktori /latihan/latihan01 dan masuk ke dalamnya
-sudo mkdir -p /latihan/latihan01
-sudo chown -R student:student /latihan
-cd /latihan/latihan01
+sudo mkdir -p latihan/latihan01
+cd latihan/latihan01
 
 
 #2. Buat file Dockerfile
