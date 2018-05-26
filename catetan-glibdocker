@@ -1,0 +1,124 @@
+##########################
+##### Install Docker #####
+##########################
+
+#1. Instal Docker
+sudo apt -y install docker.io
+sudo systemctl status docker
+
+#2. Menampilkan versi docker
+sudo docker version
+
+#3. Menampilkan detil instalasi docker
+sudo docker info
+
+#4. Uji instalasi docker
+sudo docker run hello-world
+
+#5. Menampilkan image yang sudah didownload
+sudo docker image ls
+
+#6. Menampilkan semua container (active ataupun exit)
+sudo docker container ls -a
+
+
+
+##########################
+##### whalesay image #####
+##########################
+
+#1. Buka Docker Hub dan cari image whalesay
+https://hub.docker.com
+
+#2. Jalankan image whalesay
+sudo docker run docker/whalesay cowsay boo
+
+#3. Tampilkan image yang sudah didownload
+sudo docker image ls
+
+#4. Tampilkan semua container (upataupun exit)
+sudo docker container ls -a
+
+
+
+##################################
+##### Dockerfile (latihan01) #####
+##################################
+
+#1. Buat direktori /latihan/latihan01 dan masuk ke dalamnya
+sudo mkdir -p /latihan/latihan01
+sudo chown -R student:student /latihan
+cd /latihan/latihan01
+
+
+#2. Buat file Dockerfile
+vim Dockerfile
+
+# Use whalesay image as a base image
+FROM docker/whalesay:latest
+
+# Install fortunes
+RUN apt -y update && apt install -y fortunes
+
+
+
+# Execute command
+CMD /usr/games/fortune -a | cowsay
+
+
+#3. Bangun image dari Dockerfile
+sudo docker build -t docker-whale .
+
+#4. Tampilkan image yang sudah dibangun
+sudo docker image ls
+
+#5. Uji jalankan image
+sudo docker run docker-whale
+
+
+###################################
+##### Dockerizing Application #####
+###################################
+
+#1. Clone repo berikut
+git clone https://github.com/sdmoko/2048.git
+
+#2. Pindah direktori
+cd 2048
+
+#3. Buat Dockerfile
+vim Dockerfile
+
+#4. Isi dockerfile
+#FROM is the base image for which we will run our application
+FROM nginx:latest
+
+# Copy files and directories from the application
+COPY index.html /usr/share/nginx/html
+COPY favicon.ico /usr/share/nginx/html
+COPY Rakefile /usr/share/nginx/html
+COPY style/ /usr/share/nginx/html/style/
+COPY meta/ /usr/share/nginx/html/meta/
+COPY js/ /usr/share/nginx/html/js/
+
+# Redirect log
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+        && ln -sf /dev/stderr /var/log/nginx/error.log
+
+# Tell Docker we are going to use this port
+EXPOSE 80
+
+STOPSIGNAL SIGTERM
+
+# Run nginx apps
+CMD ["nginx", "-g", "daemon off;"]
+
+
+#4. Build image
+docker build -t [NAMA-IMAGE] .
+
+#5. Running image
+docker run -d --name [NAMA-CONTAINER] -p 8000:80 [NAMA-IMAGE]
+
+#6. Cek hasil run docker
+curl http://localhost:8000
